@@ -94,14 +94,14 @@ export const ConfigManager: React.FC<ConfigManagerProps> = ({
             <span>✨</span>
             新建监控配置
           </button>
-          <button
+          {/* <button
             onClick={onImportConfig}
             disabled={loading}
             className="flex items-center gap-2 bg-card border border-border/50 text-foreground px-6 py-3 rounded-2xl hover:bg-muted shadow-lg shadow-black/5 active:scale-95 transition-all text-sm font-black uppercase tracking-widest disabled:opacity-50"
           >
             <span>📥</span>
             导入
-          </button>
+          </button> */}
         </div>
         <div className="px-4 py-2 bg-muted/50 rounded-xl border border-border/30 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">
           Portfolio Total: <span className="text-primary">{configs.length}</span> Services

@@ -57,30 +57,30 @@ const balanceList: VendorConfig[] = [
     },
     isPreset: true
   },
-  {
-    name: '欧派云',
-    logo: ppioLogo,
-    url: 'https://api.ppinfra.com/v3/user',
-    method: 'GET',
-    auth: {
-      type: 'Bearer',
-      apiKey: '',
-      headerKey: 'Authorization'
-    },
-    timeout: 10000,
-    parser: {
-      parserType: 'ppio'
-    },
-    monitoring: {
-      enabled: false,
-      interval: 30
-    },
-    thresholds: {
-      warning: 50,
-      danger: 10
-    },
-    isPreset: true
-  },
+  // {
+  //   name: '欧派云',
+  //   logo: ppioLogo,
+  //   url: 'https://api.ppinfra.com/v3/user',
+  //   method: 'GET',
+  //   auth: {
+  //     type: 'Bearer',
+  //     apiKey: '',
+  //     headerKey: 'Authorization'
+  //   },
+  //   timeout: 10000,
+  //   parser: {
+  //     parserType: 'ppio'
+  //   },
+  //   monitoring: {
+  //     enabled: false,
+  //     interval: 30
+  //   },
+  //   thresholds: {
+  //     warning: 50,
+  //     danger: 10
+  //   },
+  //   isPreset: true
+  // },
   {
     name: 'Moonshot (AI)',
     logo: moonshotLogo,
@@ -105,29 +105,29 @@ const balanceList: VendorConfig[] = [
     },
     isPreset: true
   },
-  {
-    name: 'AIHubMix',
-    logo: aihubmixLogo,
-    url: 'https://api.aihubmix.com/v1/user/usage',
-    method: 'GET',
-    auth: {
-      type: 'Bearer',
-      apiKey: '',
-      headerKey: 'Authorization'
-    },
-    parser: {
-      parserType: 'aihubmix'
-    },
-    monitoring: {
-      enabled: false,
-      interval: 30
-    },
-    thresholds: {
-      warning: 10,
-      danger: 2
-    },
-    isPreset: true
-  },
+  // {
+  //   name: 'AIHubMix',
+  //   logo: aihubmixLogo,
+  //   url: 'https://api.aihubmix.com/v1/user/usage',
+  //   method: 'GET',
+  //   auth: {
+  //     type: 'Bearer',
+  //     apiKey: '',
+  //     headerKey: 'Authorization'
+  //   },
+  //   parser: {
+  //     parserType: 'aihubmix'
+  //   },
+  //   monitoring: {
+  //     enabled: false,
+  //     interval: 30
+  //   },
+  //   thresholds: {
+  //     warning: 10,
+  //     danger: 2
+  //   },
+  //   isPreset: true
+  // },
   {
     name: 'OpenRouter',
     logo: openrouterLogo,
@@ -151,29 +151,29 @@ const balanceList: VendorConfig[] = [
     },
     isPreset: true
   },
-  {
-    name: 'VolcEngine',
-    logo: volcengineLogo,
-    url: 'https://volcengine.com/api/balance',
-    method: 'GET',
-    auth: {
-      type: 'APIKey',
-      apiKey: '',
-      headerKey: 'X-Api-Key'
-    },
-    parser: {
-      parserType: 'volcengine'
-    },
-    monitoring: {
-      enabled: false,
-      interval: 30
-    },
-    thresholds: {
-      warning: 100,
-      danger: 20
-    },
-    isPreset: true
-  }
+  // {
+  //   name: 'VolcEngine',
+  //   logo: volcengineLogo,
+  //   url: 'https://volcengine.com/api/balance',
+  //   method: 'GET',
+  //   auth: {
+  //     type: 'APIKey',
+  //     apiKey: '',
+  //     headerKey: 'X-Api-Key'
+  //   },
+  //   parser: {
+  //     parserType: 'volcengine'
+  //   },
+  //   monitoring: {
+  //     enabled: false,
+  //     interval: 30
+  //   },
+  //   thresholds: {
+  //     warning: 100,
+  //     danger: 20
+  //   },
+  //   isPreset: true
+  // }
 ]
 
 export { balanceList }

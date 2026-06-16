@@ -1,7 +1,12 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, nativeImage } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.ico?asset'
+// macOS 使用 icns 原生图标,其他平台使用 ico
+import iconWin from '../../resources/icon.ico?asset'
+import iconMac from '../../resources/icon.icns?asset'
+import iconLinux from '../../resources/icon.png?asset'
+const icon =
+  process.platform === 'darwin' ? iconMac : process.platform === 'win32' ? iconWin : iconLinux
 
 // 导入自定义模块
 import { TrayManager } from './tray-manager'
@@ -38,8 +43,6 @@ function createWindow(): void {
           titleBarStyle: 'hidden'
         }
       : {}),
-    //linux环境配置
-    ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
@@ -308,7 +311,19 @@ function setupIPCHandlers(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron.app')
+  electronApp.setAppUserModelId('com.radishon.balance-monitor')
+
+  // macOS: 显式设置 Dock 图标 (BrowserWindow 的 icon 在 macOS 不影响 Dock)
+  // dev 模式下运行的是 Electron.app,Dock 默认显示 Electron 图标;
+  // 通过 app.dock.setIcon() 可以在运行时强制替换为自定义图标
+  if (process.platform === 'darwin' && app.dock) {
+    try {
+      app.dock.setIcon(nativeImage.createFromPath(iconMac))
+      logger.info('已设置 macOS Dock 图标')
+    } catch (err) {
+      logger.warn(`设置 Dock 图标失败: ${err}`)
+    }
+  }
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.

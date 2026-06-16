@@ -8,7 +8,7 @@
   <p>实时监控、智能解析、即时通知API余额数据</p>
 
   <p>
-    <a href="https://github.com/cherry-min/balance-monitor">
+    <a href="https://github.com/esyion/balance-monitor">
       <img src="https://img.shields.io/badge/版本-1.1.2-blue?style=flat-square" alt="版本">
     </a>
     <img src="https://img.shields.io/badge/Electron-39.2.6-47848F?style=flat-square" alt="Electron">
@@ -148,7 +148,7 @@ graph TD
 
 ### 选项A: 下载预构建二进制文件
 
-从 [GitHub Releases](https://github.com/cherry-min/balance-monitor/releases) 下载最新版本：
+从 [GitHub Releases](https://github.com/esyion/balance-monitor/releases) 下载最新版本：
 
 * **Windows**: `.exe` 安装程序或便携版 `.zip`
 * **macOS**: `.dmg` 包
@@ -166,7 +166,7 @@ graph TD
 
 ```bash
 # 克隆仓库
-git clone https://github.com/cherry-min/balance-monitor.git
+git clone https://github.com/esyion/balance-monitor.git
 cd balance-monitor
 
 # 安装依赖

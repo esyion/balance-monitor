@@ -46,4 +46,4 @@ appImage:
 npmRebuild: false
 publish:
   provider: generic
-  url: https://radishon.com/auto-updates
+  url: https://github.com/esyion/balance-monitor/releases

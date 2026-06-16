@@ -8,7 +8,7 @@
   <p>Real-time monitoring, smart parsing, and instant notifications for API balance data.</p>
 
   <p>
-    <a href="https://github.com/cherry-min/balance-monitor">
+    <a href="https://github.com/esyion/balance-monitor">
       <img src="https://img.shields.io/badge/Version-1.1.2-blue?style=flat-square" alt="Version">
     </a>
     <img src="https://img.shields.io/badge/Electron-39.2.6-47848F?style=flat-square" alt="Electron">
@@ -148,7 +148,7 @@ graph TD
 
 ### Option A: Download Pre-built Binaries
 
-Download the latest release from [GitHub Releases](https://github.com/cherry-min/balance-monitor/releases):
+Download the latest release from [GitHub Releases](https://github.com/esyion/balance-monitor/releases):
 
 * **Windows**: `.exe` installer or portable `.zip`
 * **macOS**: `.dmg` package
@@ -166,7 +166,7 @@ Download the latest release from [GitHub Releases](https://github.com/cherry-min
 
 ```bash
 # Clone the repository
-git clone https://github.com/cherry-min/balance-monitor.git
+git clone https://github.com/esyion/balance-monitor.git
 cd balance-monitor
 
 # Install dependencies

@@ -474,7 +474,7 @@ function App(): React.JSX.Element {
               {[
                 { key: 'dashboard', label: '仪表盘', icon: '📊' },
                 { key: 'config', label: '服务配置', icon: '⚙️' },
-                { key: 'logs', label: '实时日志', icon: '📝' }
+                // { key: 'logs', label: '实时日志', icon: '📝' }
               ].map((item) => (
                 <button
                   key={item.key}

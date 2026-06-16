@@ -30,20 +30,34 @@ export class TrayManager {
     // 创建基础图标（灰色）
     const iconPath = this.getIconPath('gray')
     const image = nativeImage.createFromPath(iconPath)
+    const trayImage = this.normalizeTrayImage(image)
 
-    // Windows上调整图标大小
-    if (process.platform === 'win32') {
-      const resized = image.resize({ width: 16, height: 16 })
-      this.tray = new Tray(resized)
-    } else {
-      this.tray = new Tray(image)
-    }
-
+    this.tray = new Tray(trayImage)
     this.tray.setToolTip('余额监控 - 未运行')
     this.updateContextMenu()
 
     // 点击任务栏图标 -> 显示主界面
     this.tray.addListener('click', () => this.emit('show-window'))
+  }
+
+  /**
+   * 根据平台规范化托盘图标尺寸
+   * - macOS 菜单栏推荐 16x16 (Retina 32x32),并标记为 template 以适配深浅色
+   * - Windows 任务栏使用 16x16
+   * - Linux 一般为 22x22
+   */
+  private normalizeTrayImage(image: Electron.NativeImage): Electron.NativeImage {
+    let resized: Electron.NativeImage
+    if (process.platform === 'darwin') {
+      resized = image.resize({ width: 16, height: 16 })
+      // 标记为模板图像,系统会自动处理深浅色适配
+      resized.setTemplateImage(true)
+    } else if (process.platform === 'win32') {
+      resized = image.resize({ width: 16, height: 16 })
+    } else {
+      resized = image.resize({ width: 22, height: 22 })
+    }
+    return resized
   }
 
   private getIconPath(status: string): string {
@@ -129,13 +143,9 @@ export class TrayManager {
     // 更新图标
     const iconPath = this.getIconPath(this.getStatusIcon())
     const image = nativeImage.createFromPath(iconPath)
+    const trayImage = this.normalizeTrayImage(image)
 
-    if (process.platform === 'win32') {
-      const resized = image.resize({ width: 16, height: 16 })
-      this.tray.setImage(resized)
-    } else {
-      this.tray.setImage(image)
-    }
+    this.tray.setImage(trayImage)
 
     // 更新悬停提示
     const tooltip = this.generateTooltip()
