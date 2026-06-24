@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { LogEntry } from '../types'
+import { Trash2, Search } from 'lucide-react'
 
 interface LogViewerProps {
   logs: LogEntry[]
@@ -85,15 +86,13 @@ export const LogViewer: React.FC<LogViewerProps> = ({ logs, onClearLogs, onRefre
               className="p-2 aspect-square bg-card border border-border/50 text-destructive rounded-2xl hover:bg-destructive/10 shadow-lg shadow-black/5 active:scale-95 transition-all text-sm"
               title="清空日志"
             >
-              🗑️
+              <Trash2 className="w-4 h-4" />
             </button>
           </div>
         </div>
 
         <div className="relative group">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm opacity-40 group-focus-within:opacity-100 transition-opacity">
-            🔍
-          </span>
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 opacity-40 group-focus-within:opacity-100 transition-opacity" />
           <input
             type="text"
             placeholder="FILTER LOG ENTRIES BY CONTENT OR MODULE..."

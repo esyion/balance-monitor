@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 import { balanceList } from '../config/balance'
 import { useAutoSave } from '@renderer/hooks'
 import { useFormStore, selectUpdateAPIForm } from '@renderer/store'
+import { Lock, Lightbulb, Zap, Search, X, Check, Settings, ChevronRight, ChevronDown } from 'lucide-react'
 
 interface APIConfigFormProps {
   initialData?: Partial<BalanceMonitorConfig>
@@ -200,15 +201,13 @@ export const APIConfigForm: React.FC<APIConfigFormProps> = ({
                   className="w-full px-3 py-1.5 pl-8 text-xs bg-muted/30 border border-border/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-card transition-all placeholder:text-muted-foreground/50"
                   spellCheck={false}
                 />
-                <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 text-[10px] group-focus-within/search:text-primary transition-colors">
-                  🔍
-                </span>
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground/40 group-focus-within/search:text-primary transition-colors" />
                 {searchTerm && (
                   <button
                     onClick={() => setSearchTerm('')}
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground p-0.5 rounded-full"
                   >
-                    ×
+                    <X className="w-3 h-3" />
                   </button>
                 )}
               </div>
@@ -235,7 +234,7 @@ export const APIConfigForm: React.FC<APIConfigFormProps> = ({
                             className={`w-6 h-6 object-contain transition-transform duration-300 ${formData.name === template.name ? 'scale-110' : 'group-hover/item:scale-110'}`}
                           />
                         ) : (
-                          <span className="text-lg">⚙️</span>
+                          <Settings className="w-6 h-6" />
                         )}
                       </div>
                       <span className="text-center truncate w-full px-1">{template.name}</span>
@@ -279,11 +278,11 @@ export const APIConfigForm: React.FC<APIConfigFormProps> = ({
               className="w-full px-4 py-4 bg-muted/30 border border-border/50 text-foreground rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:bg-card transition-all font-mono text-sm shadow-sm group-hover/input:border-primary/30"
             />
             <div className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground/30 pointer-events-none">
-              🔒
+              <Lock className="w-4 h-4" />
             </div>
           </div>
           <p className="text-[10px] text-muted-foreground/60 mt-2 ml-1 flex items-center gap-1">
-            <span>💡</span>
+            <Lightbulb className="w-3 h-3" />
             {formData.auth?.type === 'Bearer'
               ? '请输入 API 令牌，系统将自动添加 Bearer 前缀'
               : '请输入 Basic 认证信息，系统将自动进行 Base64 编码'}
@@ -298,7 +297,11 @@ export const APIConfigForm: React.FC<APIConfigFormProps> = ({
           onClick={() => setShowAdvanced(!showAdvanced)}
           className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors ml-1"
         >
-          <span>{showAdvanced ? '▼' : '▶'}</span>
+          {showAdvanced ? (
+            <ChevronDown className="w-3 h-3" />
+          ) : (
+            <ChevronRight className="w-3 h-3" />
+          )}
           高级配置 (非预设厂商请展开)
         </button>
       </div>
@@ -414,7 +417,7 @@ export const APIConfigForm: React.FC<APIConfigFormProps> = ({
             {loading ? (
               <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
             ) : (
-              <span>⚡</span>
+              <Zap className="w-4 h-4" />
             )}
             测试连接 & 完成配置
           </button>

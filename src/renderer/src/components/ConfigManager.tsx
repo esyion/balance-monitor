@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BalanceMonitorConfig } from '../types'
 import { balanceList } from '../config/balance'
 import { ConfirmModal } from './ConfirmModal'
+import { Sparkles, Settings, Upload, Trash2, Loader2, Lightbulb } from 'lucide-react'
 
 interface ConfigManagerProps {
   configs: BalanceMonitorConfig[]
@@ -91,7 +92,7 @@ export const ConfigManager: React.FC<ConfigManagerProps> = ({
             disabled={loading}
             className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-2xl hover:bg-primary/90 shadow-lg shadow-primary/20 active:scale-95 transition-all text-sm font-black uppercase tracking-widest disabled:opacity-50"
           >
-            <span>✨</span>
+            <Sparkles className="w-4 h-4" />
             新建监控配置
           </button>
           {/* <button
@@ -211,7 +212,7 @@ export const ConfigManager: React.FC<ConfigManagerProps> = ({
                       className="p-2 hover:bg-muted text-foreground rounded-xl transition-all"
                       title="编辑"
                     >
-                      ⚙️
+                      <Settings className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleExport(config.id)}
@@ -219,7 +220,7 @@ export const ConfigManager: React.FC<ConfigManagerProps> = ({
                       className="p-2 hover:bg-muted text-foreground rounded-xl transition-all"
                       title="导出"
                     >
-                      📤
+                      <Upload className="w-4 h-4" />
                     </button>
                   </div>
                   <button
@@ -228,7 +229,11 @@ export const ConfigManager: React.FC<ConfigManagerProps> = ({
                     className="p-2 hover:bg-destructive/10 text-destructive rounded-xl transition-all disabled:opacity-30"
                     title="删除"
                   >
-                    {deletingId === config.id ? '⌛' : '🗑️'}
+                    {deletingId === config.id ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <Trash2 className="w-4 h-4" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -240,7 +245,7 @@ export const ConfigManager: React.FC<ConfigManagerProps> = ({
       {/* 提示信息 - 优化视觉体验 */}
       <div className="bg-card/20 backdrop-blur-sm border border-border/50 rounded-3xl p-6 shadow-xl shadow-black/5">
         <div className="flex items-center gap-2 mb-4">
-          <span className="text-lg">💡</span>
+          <Lightbulb className="w-5 h-5" />
           <h4 className="text-sm font-black uppercase tracking-widest text-foreground">
             Pro Tips & Guidance
           </h4>
