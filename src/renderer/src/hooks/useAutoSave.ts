@@ -13,6 +13,18 @@ export function useAutoSave({ delay = 1000, onSave, onError, onSuccess }: AutoSa
   const [isSaving, setIsSaving] = useState(false)
   const debounceRef = useRef<NodeJS.Timeout | null>(null)
 
+  // 使用 ref 存储回调，避免依赖变化
+  const onSaveRef = useRef(onSave)
+  const onErrorRef = useRef(onError)
+  const onSuccessRef = useRef(onSuccess)
+
+  // 同步最新的回调到 ref
+  useEffect(() => {
+    onSaveRef.current = onSave
+    onErrorRef.current = onError
+    onSuccessRef.current = onSuccess
+  }, [onSave, onError, onSuccess])
+
   const triggerSave = useCallback((data?: any) => {
     setDataToSave(data)
     setHasPendingSave(true)
@@ -31,10 +43,10 @@ export function useAutoSave({ delay = 1000, onSave, onError, onSuccess }: AutoSa
       try {
         setIsSaving(true)
         setHasPendingSave(false)
-        await onSave(dataToSave)
-        onSuccess?.()
+        await onSaveRef.current(dataToSave)
+        onSuccessRef.current?.()
       } catch (error) {
-        onError?.(error instanceof Error ? error : new Error(String(error)))
+        onErrorRef.current?.(error instanceof Error ? error : new Error(String(error)))
       } finally {
         setIsSaving(false)
         setDataToSave(undefined)
@@ -47,7 +59,7 @@ export function useAutoSave({ delay = 1000, onSave, onError, onSuccess }: AutoSa
         clearTimeout(debounceRef.current)
       }
     }
-  }, [dataToSave, delay, isSaving, onError, onSave, onSuccess, hasPendingSave])
+  }, [dataToSave, delay, isSaving, hasPendingSave])
 
   return {
     triggerSave,
