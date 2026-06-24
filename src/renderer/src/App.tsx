@@ -479,7 +479,7 @@ function App(): React.JSX.Element {
               ].map((item) => {
                 const IconComponent = item.icon
                 return (
-                <button
+                  <button
                   key={item.key}
                   onClick={() => setCurrentPage(item.key as PageType)}
                   className={`flex items-center gap-2.5 px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 ${currentPage === item.key

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { LogEntry } from '../types'
-import { Trash2, Search } from 'lucide-react'
+import { Trash2, Search, RefreshCw } from 'lucide-react'
 
 interface LogViewerProps {
   logs: LogEntry[]
@@ -79,7 +79,7 @@ export const LogViewer: React.FC<LogViewerProps> = ({ logs, onClearLogs, onRefre
               className="p-2 aspect-square bg-card border border-border/50 text-foreground rounded-2xl hover:bg-muted shadow-lg shadow-black/5 active:scale-95 transition-all text-sm"
               title="刷新日志"
             >
-              🔄
+              <RefreshCw className="w-4 h-4" />
             </button>
             <button
               onClick={onClearLogs}
