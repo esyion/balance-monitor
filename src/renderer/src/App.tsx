@@ -4,6 +4,7 @@ import { BalanceMonitorConfig, PageType, APIRequest } from './types'
 import logo from './assets/logo.svg'
 
 import { Toaster, toast } from 'sonner'
+import { BarChart3, Settings } from 'lucide-react'
 
 // 组件导入
 import { ConfigManager } from './components/ConfigManager'
@@ -472,10 +473,12 @@ function App(): React.JSX.Element {
             {/* 导航按钮 - 现代化分段控制 */}
             <nav className="flex items-center gap-2 bg-muted/40 p-1.5 rounded-2xl">
               {[
-                { key: 'dashboard', label: '仪表盘', icon: '📊' },
-                { key: 'config', label: '服务配置', icon: '⚙️' },
-                // { key: 'logs', label: '实时日志', icon: '📝' }
-              ].map((item) => (
+                { key: 'dashboard', label: '仪表盘', icon: BarChart3 },
+                { key: 'config', label: '服务配置', icon: Settings },
+                // { key: 'logs', label: '实时日志', icon: FileText }
+              ].map((item) => {
+                const IconComponent = item.icon
+                return (
                 <button
                   key={item.key}
                   onClick={() => setCurrentPage(item.key as PageType)}
@@ -484,7 +487,7 @@ function App(): React.JSX.Element {
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 active:scale-95'
                     }`}
                 >
-                  <span className="text-lg">{item.icon}</span>
+                  <IconComponent className="w-4 h-4" />
                   {item.label}
                 </button>
               ))}

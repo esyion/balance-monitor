@@ -1,6 +1,7 @@
 import React from 'react'
 import { MonitorStatus, BalanceMonitorConfig } from '../types'
 import { balanceList } from '../config/balance'
+import { Play, Square, RefreshCw } from 'lucide-react'
 
 interface StatusPanelProps {
   statuses: MonitorStatus[]
@@ -120,14 +121,14 @@ export const StatusPanel: React.FC<StatusPanelProps> = ({
                   onClick={onStart}
                   className="px-6 py-2.5 bg-primary text-primary-foreground rounded-2xl font-bold shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
                 >
-                  <span className="text-lg">▶</span> 启动监控
+                  <Play className="w-4 h-4" /> 启动监控
                 </button>
               ) : (
                 <button
                   onClick={onStop}
                   className="px-6 py-2.5 bg-destructive/10 text-destructive hover:bg-destructive/20 rounded-2xl font-bold transition-all flex items-center gap-2"
                 >
-                  <span className="text-lg">■</span> 停止运行
+                  <Square className="w-4 h-4" /> 停止运行
                 </button>
               )}
               <button
@@ -135,7 +136,7 @@ export const StatusPanel: React.FC<StatusPanelProps> = ({
                 disabled={loading || !isMonitoring}
                 className="px-6 py-2.5 bg-muted text-foreground hover:bg-muted-foreground/10 rounded-2xl font-bold transition-all disabled:opacity-40 flex items-center gap-2"
               >
-                <span className={`text-lg ${loading ? 'animate-spin' : ''}`}>🔄</span>
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                 {loading ? '正在查询...' : '即时刷新'}
               </button>
             </div>

@@ -241,8 +241,8 @@ export const APIConfigForm: React.FC<APIConfigFormProps> = ({
 
                       {/* Selected indicator checkmark */}
                       {formData.name === template.name && (
-                        <div className="absolute top-2 right-2 text-[10px] text-primary bg-primary/10 rounded-full w-4 h-4 flex items-center justify-center">
-                          ✓
+                        <div className="absolute top-2 right-2 text-primary bg-primary/10 rounded-full w-4 h-4 flex items-center justify-center">
+                          <Check className="w-3 h-3" />
                         </div>
                       )}
                     </button>
