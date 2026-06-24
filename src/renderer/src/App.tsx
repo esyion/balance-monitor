@@ -490,7 +490,8 @@ function App(): React.JSX.Element {
                   <IconComponent className="w-4 h-4" />
                   {item.label}
                 </button>
-              ))}
+                )
+              })}
             </nav>
           </div>
         </div>
