@@ -1,6 +1,6 @@
 import { BalanceMonitorConfig } from '@renderer/types'
 import { BalanceTemplateConfig } from '../config/balance'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { toast } from 'sonner'
 import { balanceList } from '../config/balance'
 import { useAutoSave } from '@renderer/hooks'
@@ -34,6 +34,9 @@ export const APIConfigForm: React.FC<APIConfigFormProps> = ({
     timeout: initialData?.timeout || 10000,
     body: initialData?.body || ''
   })
+
+  // 追踪上一次的 configId，用于判断是否真正切换了配置
+  const prevConfigIdRef = useRef<string | undefined>(configId)
 
   const { triggerSave, isSaving } = useAutoSave({
     delay: 1000,
@@ -126,25 +129,30 @@ export const APIConfigForm: React.FC<APIConfigFormProps> = ({
     }
   }
 
-  // 只在 configId 变化时重置表单（切换到不同的配置）
-  // 不依赖 initialData，避免每次保存后 initialData 引用变化导致表单重置
+  // 只在真正切换到不同配置时重置表单
+  // 使用 ref 追踪上一次的 configId，避免 initialData 引用变化导致误触发重置
   useEffect(() => {
-    if (initialData) {
-      setFormData({
-        name: initialData.name || '',
-        url: initialData.url || '',
-        method: initialData.method || 'GET',
-        auth: initialData.auth || {
-          type: 'Bearer',
-          apiKey: '',
-          headerKey: 'Authorization'
-        },
-        timeout: initialData.timeout || 10000,
-        body: initialData.body || ''
-      })
+    // 只在切换到不同配置时重置表单
+    if (configId !== prevConfigIdRef.current) {
+      prevConfigIdRef.current = configId
+
+      if (initialData) {
+        setFormData({
+          name: initialData.name || '',
+          url: initialData.url || '',
+          method: initialData.method || 'GET',
+          auth: initialData.auth || {
+            type: 'Bearer',
+            apiKey: '',
+            headerKey: 'Authorization'
+          },
+          timeout: initialData.timeout || 10000,
+          body: initialData.body || ''
+        })
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [configId]) // 只在 configId 变化时重新加载数据
+  }, [configId]) // 保持只依赖 configId
 
   const updateAPIForm = useFormStore(selectUpdateAPIForm)
 
