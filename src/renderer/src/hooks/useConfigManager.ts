@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { BalanceMonitorConfig, ConfigFormState } from '../types'
 import { useElectronAPI } from './useElectronAPI'
 
@@ -8,6 +8,10 @@ export const useConfigManager = () => {
   const [activeConfigId, setActiveConfigId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // 防止保存竞态
+  const savingRef = useRef(false)
+  const pendingSaveRef = useRef<Partial<BalanceMonitorConfig> | null>(null)
 
   // 加载配置
   const loadConfigs = useCallback(async () => {
@@ -31,20 +35,49 @@ export const useConfigManager = () => {
     async (config: Partial<BalanceMonitorConfig>) => {
       if (!api) return null
 
+      // 如果正在保存，加入队列
+      if (savingRef.current) {
+        pendingSaveRef.current = config
+        return null
+      }
+
+      savingRef.current = true
       setLoading(true)
       setError(null)
+
       try {
         const saved = await api.saveConfig(config)
-        await loadConfigs() // 重新加载列表
+
+        // 直接更新本地状态，不重新 loadConfigs
+        setConfigs((prev) => {
+          const index = prev.findIndex((c) => c.id === saved.id)
+          if (index >= 0) {
+            const next = [...prev]
+            next[index] = saved
+            return next
+          } else {
+            return [...prev, saved]
+          }
+        })
+
         return saved
       } catch (err) {
         setError(err instanceof Error ? err.message : '保存配置失败')
         return null
       } finally {
         setLoading(false)
+        savingRef.current = false
+
+        // 处理队列中的保存请求
+        if (pendingSaveRef.current) {
+          const next = pendingSaveRef.current
+          pendingSaveRef.current = null
+          // 延迟执行，避免立即递归
+          setTimeout(() => saveConfig(next), 0)
+        }
       }
     },
-    [api, loadConfigs]
+    [api] // 移除 loadConfigs 依赖
   )
 
   // 删除配置
