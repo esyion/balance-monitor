@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { MonitorStatus, APIRequest, ParserConfig, TestResult } from '../types'
 import { useElectronAPI } from './useElectronAPI'
 
@@ -228,6 +228,28 @@ export const useBalanceMonitor = () => {
     }
   }, [lastBalance, lastCurrency, statuses])
 
+  // 状态更新回调（使用 useCallback 稳定化，避免闭包陷阱）
+  const handleStatusChange = useCallback((data: any) => {
+    setStatuses((prev) => {
+      const index = prev.findIndex((s) => s.configId === data.configId)
+      let nextStatuses
+
+      if (index >= 0) {
+        nextStatuses = [...prev]
+        // 合并状态，防止余额被空字段覆盖
+        nextStatuses[index] = { ...nextStatuses[index], ...data }
+      } else {
+        nextStatuses = [...prev, data]
+      }
+
+      // 自动更新全局监控状态
+      const hasRunning = nextStatuses.some((s) => s.status === 'running')
+      setIsMonitoring(hasRunning)
+
+      return nextStatuses
+    })
+  }, [])
+
   // 监听余额更新事件
   useEffect(() => {
     if (!api) return
@@ -248,37 +270,24 @@ export const useBalanceMonitor = () => {
   useEffect(() => {
     if (!api) return
 
-    const unsubscribe = api.onStatusChange((data: any) => {
-      setStatuses((prev) => {
-        const index = prev.findIndex((s) => s.configId === data.configId)
-        let nextStatuses
-        if (index >= 0) {
-          nextStatuses = [...prev]
-          // 关键修复：合并状态，防止余额被空字段覆盖
-          nextStatuses[index] = { ...nextStatuses[index], ...data }
-        } else {
-          nextStatuses = [...prev, data]
-        }
-
-        // 自动更新全局监控状态
-        const hasRunning = nextStatuses.some((s) => s.status === 'running')
-        setIsMonitoring(hasRunning)
-
-        return nextStatuses
-      })
-    })
-
+    const unsubscribe = api.onStatusChange(handleStatusChange)
     return unsubscribe
-  }, [api]) // 移除 statuses 依赖，防止重复订阅
+  }, [api, handleStatusChange])
+
+  // 使用 ref 避免定时器频繁重建
+  const loadStatusesRef = useRef(loadStatuses)
+  useEffect(() => {
+    loadStatusesRef.current = loadStatuses
+  }, [loadStatuses])
 
   // 定期刷新状态
   useEffect(() => {
     const interval = setInterval(() => {
-      loadStatuses()
+      loadStatusesRef.current()
     }, 5000) // 每5秒刷新一次
 
     return () => clearInterval(interval)
-  }, [loadStatuses])
+  }, [])
 
   return useMemo(
     () => ({
