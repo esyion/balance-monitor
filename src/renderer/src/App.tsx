@@ -172,12 +172,22 @@ function App(): React.JSX.Element {
       if (stepData.isPreset !== undefined) {
         newConfig.isPreset = stepData.isPreset
       }
-      if (stepData.isPreset !== undefined) {
-        newConfig.isPreset = stepData.isPreset
-      }
     } else if (activeTab === 'monitoring') {
       if (stepData.monitoring) newConfig.monitoring = stepData.monitoring
       if (stepData.thresholds) newConfig.thresholds = stepData.thresholds
+    }
+
+    // 验证配置完整性：如果是新建配置且关键字段为空，不保存
+    if (!editingConfig?.id) {
+      // 新建配置的验证
+      const hasValidName = newConfig.name && newConfig.name.trim() !== ''
+      const hasValidUrl = newConfig.api?.url && newConfig.api.url.trim() !== ''
+
+      if (!hasValidName || !hasValidUrl) {
+        // 关键字段为空，只更新本地状态，不保存到数据库
+        setEditingConfig(newConfig)
+        return
+      }
     }
 
     const saved = await configManager.saveConfig(newConfig)
