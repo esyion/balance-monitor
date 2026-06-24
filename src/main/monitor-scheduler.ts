@@ -27,6 +27,7 @@ export class MonitorScheduler {
 
   private timers: Map<string, NodeJS.Timeout>
   private statuses: Map<string, MonitorStatus>
+  private isExecuting: Set<string> // 追踪正在执行的配置
   private mainWindow: BrowserWindow | null = null
 
   constructor(configManager: ConfigManager, trayManager: TrayManager) {
@@ -38,6 +39,7 @@ export class MonitorScheduler {
 
     this.timers = new Map()
     this.statuses = new Map()
+    this.isExecuting = new Set()
 
     this.setupIPCHandlers()
   }
@@ -173,10 +175,24 @@ export class MonitorScheduler {
     // 3. 设置定时器
     const interval = config.monitoring.interval * 1000
     const timer = setInterval(async () => {
+      // 检查是否正在执行
+      if (this.isExecuting.has(config.id)) {
+        this.logger.warn(
+          `[${config.name}] 跳过本次查询：上次查询未完成 (响应时间 > ${config.monitoring.interval}s)`
+        )
+        return
+      }
+
+      // 标记为执行中
+      this.isExecuting.add(config.id)
+
       try {
         await this.executeMonitor(config)
       } catch (error) {
         this.logger.error(`定时查询失败: ${error}`)
+      } finally {
+        // 清除执行标记
+        this.isExecuting.delete(config.id)
       }
     }, interval)
 
@@ -200,6 +216,7 @@ export class MonitorScheduler {
     if (timer) {
       clearInterval(timer)
       this.timers.delete(configId)
+      this.isExecuting.delete(configId)
 
       const status = this.statuses.get(configId)
       if (status) {
@@ -407,6 +424,7 @@ export class MonitorScheduler {
     }
     this.timers.clear()
     this.statuses.clear()
+    this.isExecuting.clear()
   }
 
   // 获取特定配置的状态
