@@ -17,6 +17,7 @@ interface ParserConfigProps {
 const PARSER_STRATEGIES = [
   { value: 'deepseek', label: 'DeepSeek', icon: '🧠' },
   { value: 'moonshot', label: 'Moonshot (月之暗面)', icon: '🌙' },
+  { value: 'minimax', label: 'MiniMax AI', icon: '🤖' },
   { value: 'aihubmix', label: 'AIHubMix', icon: '🔌' },
   { value: 'openrouter', label: 'OpenRouter', icon: '🌐' },
   { value: 'volcengine', label: 'VolcEngine (火山引擎)', icon: '🌋' }

@@ -12,6 +12,7 @@ import { AIHubMixPlugin } from './plugins/aihubmix'
 import { OpenRouterPlugin } from './plugins/openrouter'
 import { VolcEnginePlugin } from './plugins/volcengine'
 import { PPIOPlugin } from './plugins/ppio'
+import { MiniMaxPlugin } from './plugins/minimax'
 
 // 插件注册表
 const pluginRegistry: Record<string, () => ParserPlugin> = {
@@ -20,7 +21,8 @@ const pluginRegistry: Record<string, () => ParserPlugin> = {
   [PARSER_STRATEGIES.AIHUBMIX]: () => new AIHubMixPlugin(),
   [PARSER_STRATEGIES.OPENROUTER]: () => new OpenRouterPlugin(),
   [PARSER_STRATEGIES.VOLCENGINE]: () => new VolcEnginePlugin(),
-  [PARSER_STRATEGIES.PPIO]: () => new PPIOPlugin()
+  [PARSER_STRATEGIES.PPIO]: () => new PPIOPlugin(),
+  [PARSER_STRATEGIES.MINIMAX]: () => new MiniMaxPlugin()
 }
 
 // 获取所有插件实例

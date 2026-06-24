@@ -5,6 +5,7 @@ import ppioLogo from '../assets/providers/ppio.png'
 import aihubmixLogo from '../assets/providers/aihubmix.png'
 import openrouterLogo from '../assets/providers/openrouter.png'
 import volcengineLogo from '../assets/providers/volcengine.png'
+import minimaxLogo from '../assets/providers/minimax.png'
 
 export type { VendorConfig as BalanceTemplateConfig }
 
@@ -140,6 +141,30 @@ const balanceList: VendorConfig[] = [
     },
     parser: {
       parserType: 'openrouter'
+    },
+    monitoring: {
+      enabled: false,
+      interval: 30
+    },
+    thresholds: {
+      warning: 10,
+      danger: 2
+    },
+    isPreset: true
+  },
+  {
+    name: 'MiniMax AI',
+    logo: minimaxLogo,
+    url: 'https://www.minimaxi.com/account/query_balance',
+    method: 'GET',
+    auth: {
+      type: 'Bearer',
+      apiKey: '',
+      headerKey: 'authorization'
+    },
+    timeout: 10000,
+    parser: {
+      parserType: 'minimax'
     },
     monitoring: {
       enabled: false,

@@ -11,6 +11,7 @@ export const PARSER_STRATEGIES = {
   OPENROUTER: 'openrouter',
   VOLCENGINE: 'volcengine',
   PPIO: 'ppio',
+  MINIMAX: 'minimax'
 } as const
 
 export type ParserType = (typeof PARSER_STRATEGIES)[keyof typeof PARSER_STRATEGIES]
