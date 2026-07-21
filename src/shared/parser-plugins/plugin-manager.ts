@@ -21,7 +21,9 @@ export class ParserPluginManager {
   }
 
   // 私有构造函数
-  private constructor() {}
+  private constructor() {
+    // 单例只能通过 getInstance 创建。
+  }
 
   // 初始化插件管理器
   async initialize(): Promise<void> {

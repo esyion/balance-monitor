@@ -20,6 +20,10 @@ const PARSER_STRATEGIES = [
   { value: 'minimax', label: 'MiniMax AI', icon: '🤖' },
   { value: 'aihubmix', label: 'AIHubMix', icon: '🔌' },
   { value: 'openrouter', label: 'OpenRouter', icon: '🌐' },
+  { value: 'stepfun', label: 'StepFun (阶跃星辰)', icon: '🪜' },
+  { value: 'siliconflow', label: 'SiliconFlow (国内)', icon: '💠' },
+  { value: 'siliconflow_en', label: 'SiliconFlow (国际)', icon: '🌐' },
+  { value: 'novita', label: 'Novita AI', icon: '✨' },
   { value: 'volcengine', label: 'VolcEngine (火山引擎)', icon: '🌋' }
 ]
 

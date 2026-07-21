@@ -48,7 +48,7 @@
 
 * **多API支持**: 配置和监控来自不同提供商的多个API端点
 * **灵活调度**: 设置从1分钟到24小时的自定义监控间隔
-* **预设模板**: 流行API提供商的预配置模板（DeepSeek、Moonshot、OpenRouter、VolcEngine等）
+* **预设模板**: 流行API提供商的预配置模板（DeepSeek、Moonshot、OpenRouter、StepFun、SiliconFlow、Novita AI、MiniMax AI 等）
 * **安全存储**: 加密配置存储，自动备份
 * **导入/导出**: 轻松在设备间迁移配置或与团队成员共享
 

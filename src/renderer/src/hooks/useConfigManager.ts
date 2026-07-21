@@ -31,7 +31,9 @@ export const useConfigManager = () => {
   }, [api])
 
   // 保存配置
+  // 该回调会在 finally 中调度自身处理合并后的待保存配置，必须保持引用稳定。
   const saveConfig = useCallback(
+    // eslint-disable-next-line react-hooks/preserve-manual-memoization
     async (config: Partial<BalanceMonitorConfig>) => {
       if (!api) return null
 

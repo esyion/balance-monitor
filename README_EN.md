@@ -48,7 +48,7 @@
 
 * **Multi-API Support**: Configure and monitor multiple API endpoints from different providers
 * **Flexible Scheduling**: Set custom monitoring intervals from 1 minute to 24 hours
-* **Preset Templates**: Pre-configured templates for popular API providers (DeepSeek, Moonshot, OpenRouter, VolcEngine, etc.)
+* **Preset Templates**: Pre-configured templates for popular API providers (DeepSeek, Moonshot, OpenRouter, StepFun, SiliconFlow, Novita AI, MiniMax AI, etc.)
 * **Secure Storage**: Encrypted configuration storage with automatic backups
 * **Import/Export**: Easily migrate configurations between devices or share with team members
 

@@ -4,7 +4,7 @@
  *
  * 使用方法：node scripts/replace-icons.js
  */
-
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs')
 const path = require('path')
 

@@ -9,6 +9,10 @@ export const PARSER_STRATEGIES = {
   MOONSHOT: 'moonshot',
   AIHUBMIX: 'aihubmix',
   OPENROUTER: 'openrouter',
+  STEPFUN: 'stepfun',
+  SILICONFLOW: 'siliconflow',
+  SILICONFLOW_EN: 'siliconflow_en',
+  NOVITA: 'novita',
   VOLCENGINE: 'volcengine',
   PPIO: 'ppio',
   MINIMAX: 'minimax'

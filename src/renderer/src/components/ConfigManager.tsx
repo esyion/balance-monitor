@@ -23,7 +23,6 @@ export const ConfigManager: React.FC<ConfigManagerProps> = ({
   onEditConfig,
   onDeleteConfig,
   onExportConfig,
-  onImportConfig,
   onToggleMonitoring,
   loading = false
 }) => {
@@ -129,10 +128,11 @@ export const ConfigManager: React.FC<ConfigManagerProps> = ({
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`relative w-14 h-14 p-2.5 rounded-2xl flex items-center justify-center border transition-all duration-500 group-hover:shadow-lg group-hover:shadow-primary/5 group-hover:-translate-y-0.5 ${config.monitoring.enabled
+                      className={`relative w-14 h-14 p-2.5 rounded-2xl flex items-center justify-center border transition-all duration-500 group-hover:shadow-lg group-hover:shadow-primary/5 group-hover:-translate-y-0.5 ${
+                        config.monitoring.enabled
                           ? 'bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20'
                           : 'bg-gradient-to-br from-muted/60 via-muted/30 to-transparent border-border/40 grayscale group-hover:grayscale-0'
-                        }`}
+                      }`}
                     >
                       {/* Glossy shine effect */}
                       <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />

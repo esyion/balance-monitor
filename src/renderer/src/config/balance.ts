@@ -1,10 +1,10 @@
 import { VendorConfig } from '../types/balance'
 import deepseekLogo from '../assets/providers/deepseek.png'
 import moonshotLogo from '../assets/providers/moonshot.png'
-import ppioLogo from '../assets/providers/ppio.png'
-import aihubmixLogo from '../assets/providers/aihubmix.png'
 import openrouterLogo from '../assets/providers/openrouter.png'
-import volcengineLogo from '../assets/providers/volcengine.png'
+import stepfunLogo from '../assets/providers/step.png'
+import siliconFlowLogo from '../assets/providers/silicon.png'
+import novitaLogo from '../assets/providers/novita.svg'
 import minimaxLogo from '../assets/providers/minimax.png'
 
 export type { VendorConfig as BalanceTemplateConfig }
@@ -153,6 +153,102 @@ const balanceList: VendorConfig[] = [
     isPreset: true
   },
   {
+    name: 'StepFun',
+    logo: stepfunLogo,
+    url: 'https://api.stepfun.com/v1/accounts',
+    method: 'GET',
+    auth: {
+      type: 'Bearer',
+      apiKey: '',
+      headerKey: 'Authorization'
+    },
+    timeout: 15000,
+    parser: {
+      parserType: 'stepfun'
+    },
+    monitoring: {
+      enabled: false,
+      interval: 30
+    },
+    thresholds: {
+      warning: 50,
+      danger: 10
+    },
+    isPreset: true
+  },
+  {
+    name: 'SiliconFlow (CN)',
+    logo: siliconFlowLogo,
+    url: 'https://api.siliconflow.cn/v1/user/info',
+    method: 'GET',
+    auth: {
+      type: 'Bearer',
+      apiKey: '',
+      headerKey: 'Authorization'
+    },
+    timeout: 15000,
+    parser: {
+      parserType: 'siliconflow'
+    },
+    monitoring: {
+      enabled: false,
+      interval: 30
+    },
+    thresholds: {
+      warning: 50,
+      danger: 10
+    },
+    isPreset: true
+  },
+  {
+    name: 'SiliconFlow (EN)',
+    logo: siliconFlowLogo,
+    url: 'https://api.siliconflow.com/v1/user/info',
+    method: 'GET',
+    auth: {
+      type: 'Bearer',
+      apiKey: '',
+      headerKey: 'Authorization'
+    },
+    timeout: 15000,
+    parser: {
+      parserType: 'siliconflow_en'
+    },
+    monitoring: {
+      enabled: false,
+      interval: 30
+    },
+    thresholds: {
+      warning: 10,
+      danger: 2
+    },
+    isPreset: true
+  },
+  {
+    name: 'Novita AI',
+    logo: novitaLogo,
+    url: 'https://api.novita.ai/v3/user/balance',
+    method: 'GET',
+    auth: {
+      type: 'Bearer',
+      apiKey: '',
+      headerKey: 'Authorization'
+    },
+    timeout: 15000,
+    parser: {
+      parserType: 'novita'
+    },
+    monitoring: {
+      enabled: false,
+      interval: 30
+    },
+    thresholds: {
+      warning: 10,
+      danger: 2
+    },
+    isPreset: true
+  },
+  {
     name: 'MiniMax AI',
     logo: minimaxLogo,
     url: 'https://www.minimaxi.com/account/query_balance',
@@ -175,7 +271,7 @@ const balanceList: VendorConfig[] = [
       danger: 2
     },
     isPreset: true
-  },
+  }
   // {
   //   name: 'VolcEngine',
   //   logo: volcengineLogo,

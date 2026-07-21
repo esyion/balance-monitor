@@ -10,6 +10,9 @@ import { DeepSeekPlugin } from './plugins/deepseek'
 import { MoonshotPlugin } from './plugins/moonshot'
 import { AIHubMixPlugin } from './plugins/aihubmix'
 import { OpenRouterPlugin } from './plugins/openrouter'
+import { StepFunPlugin } from './plugins/stepfun'
+import { SiliconFlowPlugin, SiliconFlowEnPlugin } from './plugins/siliconflow'
+import { NovitaPlugin } from './plugins/novita'
 import { VolcEnginePlugin } from './plugins/volcengine'
 import { PPIOPlugin } from './plugins/ppio'
 import { MiniMaxPlugin } from './plugins/minimax'
@@ -20,6 +23,10 @@ const pluginRegistry: Record<string, () => ParserPlugin> = {
   [PARSER_STRATEGIES.MOONSHOT]: () => new MoonshotPlugin(),
   [PARSER_STRATEGIES.AIHUBMIX]: () => new AIHubMixPlugin(),
   [PARSER_STRATEGIES.OPENROUTER]: () => new OpenRouterPlugin(),
+  [PARSER_STRATEGIES.STEPFUN]: () => new StepFunPlugin(),
+  [PARSER_STRATEGIES.SILICONFLOW]: () => new SiliconFlowPlugin(),
+  [PARSER_STRATEGIES.SILICONFLOW_EN]: () => new SiliconFlowEnPlugin(),
+  [PARSER_STRATEGIES.NOVITA]: () => new NovitaPlugin(),
   [PARSER_STRATEGIES.VOLCENGINE]: () => new VolcEnginePlugin(),
   [PARSER_STRATEGIES.PPIO]: () => new PPIOPlugin(),
   [PARSER_STRATEGIES.MINIMAX]: () => new MiniMaxPlugin()

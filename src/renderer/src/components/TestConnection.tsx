@@ -197,6 +197,10 @@ export const TestConnection: React.FC<TestConnectionProps> = ({ onTestAPI, onTes
               <option value="moonshot">Moonshot (月之暗面)</option>
               <option value="aihubmix">AIHubMix</option>
               <option value="openrouter">OpenRouter</option>
+              <option value="stepfun">StepFun (阶跃星辰)</option>
+              <option value="siliconflow">SiliconFlow (国内)</option>
+              <option value="siliconflow_en">SiliconFlow (国际)</option>
+              <option value="novita">Novita AI</option>
               <option value="volcengine">VolcEngine (火山引擎)</option>
             </select>
             <p className="text-xs text-muted-foreground mt-1">选择对应服务提供商的解析策略</p>
